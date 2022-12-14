@@ -1,4 +1,3 @@
-import Head from 'next/head'
 import ListaProductos from '../components/ListaProductos'
 import Modal from '../components/Modal'
 import NavBar from '../components/NavBar'
@@ -56,9 +55,9 @@ export default function Home({productos}:props) {
   return (
     <div>
       <PageLayout tittle='TestShop'>
-        <NavBar/>
+        <NavBar productos={productos}/>
         <ListaProductos productos={productos}/>
-        <Modal/>
+        <Modal productos={productos}/>
       </PageLayout>
 
       
@@ -81,7 +80,7 @@ export async function getStaticProps() {
     page=page+1
   }
 
-  console.log(productos)
+  
   return{
       props:{
 

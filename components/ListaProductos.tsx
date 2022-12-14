@@ -51,7 +51,7 @@ interface Section{
 const ListaProductos = ({productos}:props) => {
 
 
-console.log(productos)
+
 
 let auxProductolist=productos
 

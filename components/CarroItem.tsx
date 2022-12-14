@@ -2,14 +2,14 @@ import React from 'react'
 import {FaTrashAlt} from 'react-icons/fa'
 
 type props={
-    _id:number,
+    id:number,
     img:string,
     nombre:string,
     cantidad:number,
     precio:number,
     eliminar: (id:number)=>void, }
 
-const CarroItem = ({_id,img,nombre,cantidad,precio,eliminar }:props) => {
+const CarroItem = ({id,img,nombre,cantidad,precio,eliminar }:props) => {
 
 
   return (
@@ -26,7 +26,7 @@ const CarroItem = ({_id,img,nombre,cantidad,precio,eliminar }:props) => {
         </div>
     </div>
     <div className='flex items-center justify-end text-2xl w-1/2 '>
-        <button onClick={()=>eliminar(_id)} className='text-red-600'><FaTrashAlt/></button>
+        <button onClick={()=>eliminar(id)} className='text-red-600'><FaTrashAlt/></button>
     </div>
 </div>
   )

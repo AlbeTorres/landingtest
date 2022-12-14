@@ -10,8 +10,6 @@ const ButtonMenu = ({id}:props) => {
 
 const context=useContext(productoContext)
 
-console.log(context?.carrito)
-
 const añadirCarro=(id:number)=>{
 
     const carro={id,cantidad:1}

@@ -1,18 +1,83 @@
 import React, {useContext, useEffect} from "react";
+import productoContext from "../context/productoContext";
 
 
-type props={
+interface Producto{
   id:number,
-  accion:string
+  name:string,
+  price:number,
+  main_image:string,
+  extra_images:Array<string>,
+  description:string,
+  extra_info:string,
+  stock:number,
+  shop: Shop,
+  section: Section,
+}
+
+interface Shop{
+  id:number,
+  cover:null|string ,
+  name:string,
+  description:string,
+ created:string,
+ update:string,
+ delivery_cost:number,
+ user_id:number,
+ location:number,
+ logo:string,
+ fixed_delivery:boolean,
+ fixed_delivery_cost:number,
+ aproved:boolean,
+}
+
+interface Section{
+  id:number,
+  cover:null|string ,
+  icon:null|string ,
+  en_name:string,
+  es_name:string,
+  department:number
+ created:string,
+ update:string
+}
+type props={
+   productos:Array<Producto>
+}
+
+type accion={
+  id:number, accion:string
 
 }
 
-const NavCarrito = () => {
+
+type produarray={
+  cantidad: number; id: number; name: string; price: number; main_image: string; extra_images: string[]; description: string; extra_info: string; stock: number; shop: Shop; section: Section;
+ }
+
+const NavCarrito = ({productos}:props) => {
+
+  const context=useContext(productoContext)
+
+  useEffect(()=>{
+    context?.obtenerCarrito();
+  },[])
 
   let monto = 0
-  let cantida= 0
+  let cantida= context?.carrito.length
 
-  const establecerAccionAux=(accion:props):void=>{
+  let compras:produarray[]=[]
+  
+  
+  productos.map(producto=>{
+    context?.carrito.map(carro=>carro.id===producto.id && compras.push({...producto,cantidad:carro.cantidad}))
+    
+  })
+  
+  
+  compras?.map( producto=> monto = monto + (producto?.price* producto.cantidad)  )
+
+  const establecerAccionAux=(accion:accion):void=>{
     console.log({accion})
 
   }
@@ -45,7 +110,7 @@ const NavCarrito = () => {
       className="mt-3 card card-compact dropdown-content w-52 bg-base-100 shadow"
     >
       <div className="card-body">
-        <span className="font-bold text-lg">{cantida} { cantida > 1 ? 'productos' : 'producto' } </span>
+        <span className="font-bold text-lg">{cantida} { cantida!==undefined && cantida > 1 ? 'productos' : 'producto' } </span>
         <span className="text-info">Subtotal: ${monto} </span>
         <div className="card-actions">
           <label  htmlFor="my-modal-6" 

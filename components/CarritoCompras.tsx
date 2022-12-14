@@ -1,21 +1,80 @@
-import React from 'react'
+import React,{useContext, useEffect} from 'react'
 import CarroItem from './CarroItem'
+import productoContext from '../context/productoContext'
 
-const CarritoCompras = () => {
 
-    let compras= [
-        {_id:1, img:'imagen', nombre:'nada',cantidad:4, precio:10},
-        {_id:2, img:'imagen', nombre:'nada',cantidad:4, precio:10},
-        {_id:3, img:'imagen', nombre:'nada',cantidad:4, precio:10},
-        {_id:4, img:'imagen', nombre:'nada',cantidad:4, precio:10},
-        {_id:5, img:'imagen', nombre:'nada',cantidad:4, precio:10},
-    ]
+interface Producto{
+  id:number,
+  name:string,
+  price:number,
+  main_image:string,
+  extra_images:Array<string>,
+  description:string,
+  extra_info:string,
+  stock:number,
+  shop: Shop,
+  section: Section,
+}
 
-    let monto_total=20
+interface Shop{
+  id:number,
+  cover:null|string ,
+  name:string,
+  description:string,
+ created:string,
+ update:string,
+ delivery_cost:number,
+ user_id:number,
+ location:number,
+ logo:string,
+ fixed_delivery:boolean,
+ fixed_delivery_cost:number,
+ aproved:boolean,
+}
+
+interface Section{
+  id:number,
+  cover:null|string ,
+  icon:null|string ,
+  en_name:string,
+  es_name:string,
+  department:number
+ created:string,
+ update:string
+}
+type props={
+   productos:Array<Producto>
+}
+
+type produarray={
+  cantidad: number; id: number; name: string; price: number; main_image: string; extra_images: string[]; description: string; extra_info: string; stock: number; shop: Shop; section: Section;
+ }
+
+const CarritoCompras = ({productos}:props) => {
+
+
+  const context=useContext(productoContext)
+
+
+  let compras:produarray[]=[]
+  let monto_total=0
+
+
+
+  productos.map(producto=>{
+    context?.carrito.map(carro=>carro.id===producto.id && compras.push({...producto,cantidad:carro.cantidad}))
+    
+  })
+
+  compras.map(compra=>monto_total= monto_total+compra.price*compra.cantidad)
+
+
+   
 
     const eliminar=(id:number):void=>{
     
-        console.log(id)
+        context?.eliminarCarrito(id)
+        console.log('eliminado'+id)
       }
     
 
@@ -25,7 +84,7 @@ const CarritoCompras = () => {
      <h2 className='my-2 text-xl'>Órdenes</h2>
      <div className=' overflow-y-scroll h-72 p-2'>
        {compras.length !=0 ?
-         compras.map(producto=><CarroItem key={producto._id} _id={producto._id}  img={producto.img} nombre={producto.nombre} cantidad={producto.cantidad} precio={producto.precio}  eliminar={eliminar} />):
+         compras.map(producto=><CarroItem key={producto.id} id={producto.id}  img={producto.main_image} nombre={producto.name} cantidad={producto.cantidad} precio={producto.price}  eliminar={eliminar} />):
          <h1>Carro vacío</h1>
        }
      </div>

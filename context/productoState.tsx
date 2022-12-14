@@ -57,7 +57,7 @@ const ProductoState = ({children}:props) => {
       let carrito= localStorage.getItem('carrito');
       let carritoarray=[]
       let index=null;
-      console.log(carrito)
+     
 
       if(carrito){
         carritoarray = JSON.parse(carrito);
@@ -77,10 +77,12 @@ const ProductoState = ({children}:props) => {
       }
       
       localStorage.setItem('carrito', JSON.stringify(carritoarray))
+
+      
       
       dispatch({
         type:AÑADIR_CARRO,
-        payload:carrito
+        payload:carritoarray
       })
      
       
@@ -102,6 +104,8 @@ const ProductoState = ({children}:props) => {
       
 
       localStorage.setItem('carrito', JSON.stringify(carritoarray))
+
+      console.log(carritoarray)
 
       dispatch({
         type:ELIMINAR_CARRO,

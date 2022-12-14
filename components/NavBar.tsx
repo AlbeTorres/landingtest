@@ -4,7 +4,53 @@ import {FaShoppingCart} from 'react-icons/fa'
 import Busqueda from "./Busqueda";
 import NavCarrito from "./NavCarrito";
 
-const NavBar = () => {
+
+
+interface Producto{
+  id:number,
+  name:string,
+  price:number,
+  main_image:string,
+  extra_images:Array<string>,
+  description:string,
+  extra_info:string,
+  stock:number,
+  shop: Shop,
+  section: Section,
+}
+
+interface Shop{
+  id:number,
+  cover:null|string ,
+  name:string,
+  description:string,
+ created:string,
+ update:string,
+ delivery_cost:number,
+ user_id:number,
+ location:number,
+ logo:string,
+ fixed_delivery:boolean,
+ fixed_delivery_cost:number,
+ aproved:boolean,
+}
+
+interface Section{
+  id:number,
+  cover:null|string ,
+  icon:null|string ,
+  en_name:string,
+  es_name:string,
+  department:number
+ created:string,
+ update:string
+}
+type props={
+   productos:Array<Producto>
+}
+
+
+const NavBar = ({productos}:props) => {
 
     const [scrolled, setScrolled]=useState(false)
 
@@ -39,7 +85,7 @@ const NavBar = () => {
             <div className="hidden md:block ">
               <Busqueda />
             </div>
-            <NavCarrito />
+            <NavCarrito productos={productos} />
           </div>
         </div>
       </Container>

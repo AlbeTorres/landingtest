@@ -54,7 +54,7 @@ export default (state:state, action:action) => {
     case ELIMINAR_CARRO:
       return({
         ...state,
-        carrito: state.carrito.filter(producto=>producto.id!==action.payload.id)
+        carrito: state.carrito.filter(producto=>producto.id!==action.payload)
       })
     case ELIMINAR_CARRO_ALL:
       return({
