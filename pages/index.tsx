@@ -3,7 +3,7 @@ import ListaProductos from '../components/ListaProductos'
 import Modal from '../components/Modal'
 import NavBar from '../components/NavBar'
 import PageLayout from '../components/PageLayout'
-import axios,{AxiosResponse}  from 'axios'
+import axios  from 'axios'
 
 
 interface Producto{
