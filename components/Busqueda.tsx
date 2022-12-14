@@ -1,19 +1,16 @@
-import React from 'react'
+import React,{useContext} from 'react'
+import productoContext from '../context/productoContext';
 
 const Busqueda = () => {
 
-    // const {busqueda, establecerBusqueda}= useContext(productoContext);
+  const context=useContext(productoContext)
 
-    let busqueda='';
+    let busqueda=context?.busqueda;
 
-    const establecerBusqueda=(a:string)=>{
-        console.log(a)
-        busqueda=a
-    }
 
     const onChange=(e:React.ChangeEvent<HTMLInputElement>)=>{
-        establecerBusqueda(e.target.value) 
-        console.log()
+        context?.establecerBusqueda(e.target.value) 
+       
     }
 
   return (

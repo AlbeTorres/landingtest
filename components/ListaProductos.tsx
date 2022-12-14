@@ -1,7 +1,8 @@
 import axios,{AxiosResponse}  from 'axios'
-import React,{useEffect} from 'react'
+import React,{useContext} from 'react'
 import Container from './Container'
 import ProductoCard from './ProductoCard'
+import productoContext from '../context/productoContext'
 
 interface Producto{
     id:number,
@@ -50,10 +51,23 @@ interface Section{
 
 const ListaProductos = ({productos}:props) => {
 
+  const context=useContext(productoContext)
+
 
 
 
 let auxProductolist=productos
+
+
+if(context?.busqueda){
+        
+  auxProductolist = auxProductolist.filter((producto) => {
+    return Object.values(producto)
+      .join(" ")
+      .toLowerCase()
+      .includes(context?.busqueda.toLowerCase());
+  });
+}
 
 
   return (
