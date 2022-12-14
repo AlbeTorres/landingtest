@@ -77,6 +77,10 @@ const CarritoCompras = ({productos}:props) => {
         console.log('eliminado'+id)
       }
     
+      const onSubmit=()=>{
+        context?.eliminarTodoElcarro();
+        alert('Gracias por la compra')
+      }
 
 
   return (
@@ -103,7 +107,7 @@ const CarritoCompras = ({productos}:props) => {
      </div>
 
      <div className='flex  items-center mt-5 w-full justify-end'>
-       <label htmlFor="my-modal-6"  className='btn btn-primary mr-3'>Comprar</label>
+       <label htmlFor="my-modal-6" onClick={onSubmit} className='btn btn-primary mr-3'>Comprar</label>
        <label htmlFor="my-modal-6" className='btn '>Cancelar</label>
      </div>
    </div>
