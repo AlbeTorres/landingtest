@@ -66,15 +66,22 @@ export default function Home({productos}:props) {
   )
 }
 
-export async function getServerSideProps() {
-
+export async function getStaticProps() {
+  let page=2
   const clienteAxios = axios.create({
       baseURL: 'http://sibucan-shop-staging.herokuapp.com'
   });
 
-  const response = await clienteAxios.get('/products/');
-  const productos = response.data.results
+  let response = await clienteAxios.get('/products/');
+  let productos = response.data.results
+  
+  while(response.data.next!==null){
+    response= await clienteAxios.get(`/products/?page=${page}`);
+    productos=[...productos, ...response.data.results]
+    page=page+1
+  }
 
+  console.log(productos)
   return{
       props:{
 

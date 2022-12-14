@@ -1,4 +1,5 @@
-import React from 'react'
+import React,{useContext} from 'react'
+import productoContext from '../context/productoContext'
 import {FaCartPlus} from 'react-icons/fa'
 
 type props={
@@ -7,9 +8,16 @@ type props={
 
 const ButtonMenu = ({id}:props) => {
 
-    const añadirCarro=(id:number)=>{
-        console.log(id)
-    }
+const context=useContext(productoContext)
+
+console.log(context?.carrito)
+
+const añadirCarro=(id:number)=>{
+
+    const carro={id,cantidad:1}
+    context?.agregarCarrito(carro)
+}
+
 
   return (
     <div className='flex flex-col justify-center items-center w-full'>
