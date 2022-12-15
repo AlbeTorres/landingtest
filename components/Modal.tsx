@@ -43,8 +43,21 @@ interface Section{
  created:string,
  update:string
 }
+
+
+interface Deparmet{
+        id: number,
+        en_name: string,
+        es_name: string,
+        icon:string|null,
+        cover: string|null,
+        sections:Section[]
+}
+
+
 type props={
-   productos:Array<Producto>
+  productos:Producto[],
+ 
 }
 
 const Modal = ({productos}:props) => {

@@ -46,9 +46,20 @@ interface Section{
 }
 
 
+interface Deparmet{
+        id: number,
+        en_name: string,
+        es_name: string,
+        icon:string|null,
+        cover: string|null,
+        sections:Section[]
+}
+
 
 type props={
-  productos:Array<Producto>
+  productos:Producto[],
+  secciones:Section[],
+  departamentos:Deparmet[]
 }
 
 export default function Home({productos}:props) {
@@ -57,7 +68,7 @@ export default function Home({productos}:props) {
       <PageLayout tittle='TestShop'>
         <NavBar productos={productos}/>
         <ListaProductos productos={productos}/>
-        <Modal productos={productos}/>
+        <Modal productos={productos}  />
       </PageLayout>
 
       
@@ -80,10 +91,10 @@ export async function getStaticProps() {
     page=page+1
   }
 
+
   
   return{
       props:{
-
           productos
       } 
   }

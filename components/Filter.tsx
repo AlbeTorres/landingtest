@@ -1,30 +1,126 @@
-import React from "react";
+import React,{useState, useEffect} from "react";
+import axios from "axios";
+
+interface Producto{
+    id:number,
+    name:string,
+    price:number,
+    main_image:string,
+    extra_images:Array<string>,
+    description:string,
+    extra_info:string,
+    stock:number,
+    shop: Shop,
+    section: Section,
+  }
+  
+  interface Shop{
+    id:number,
+    cover:null|string ,
+    name:string,
+    description:string,
+   created:string,
+   update:string,
+   delivery_cost:number,
+   user_id:number,
+   location:number,
+   logo:string,
+   fixed_delivery:boolean,
+   fixed_delivery_cost:number,
+   aproved:boolean,
+  }
+  
+  interface Section{
+    id:number,
+    cover:null|string ,
+    icon:null|string ,
+    en_name:string,
+    es_name:string,
+    department:number
+   created:string,
+   update:string
+  }
+  
+  
+  interface Deparmet{
+          id: number,
+          en_name: string,
+          es_name: string,
+          icon:string|null,
+          cover: string|null,
+          sections:Section[]
+  }
+  
+  
+  type props={
+    secciones:Section[],
+    departamentos:Deparmet[]
+  }
+
+  type state={
+    dep?:Deparmet|null,
+    sec?:Section[]|null,
+    min?:number,
+    max?:number
+  }
 
 const Filter = () => {
+
+    let filte:state={dep:null,sec:null,min:0,max:0}
+    let depaux:Deparmet={id:0,es_name:'empty', sections:[], en_name:'', icon:'', cover:''}
+
+    const [filter,setFilter]=useState(filte)
+    const [departamentos,setDepartamentos]=useState([depaux])
+
+    useEffect(()=>{
+        const clienteAxios = axios.create({
+            baseURL: 'http://sibucan-shop-staging.herokuapp.com'
+        });
+
+        const apiCalls=async()=>{
+
+            let departaments= await clienteAxios.get('/departments/')
+            setDepartamentos(departaments.data)
+            
+        }
+
+        apiCalls()
+       
+      
+    },[])
+
+
+    const getDeparmet=(e:React.ChangeEvent<HTMLSelectElement>)=>{
+        const depa= departamentos.find(dep=>dep.id===parseInt(e.target.value ) )
+        setFilter({
+            ...filter,
+            dep:depa,
+            sec:depa?.sections
+        })
+    }
+
   return (
     <div className="modal-box ">
         <div className="flex flex-col items-center justify-center">
         <h4 className="dark:text-white text-lg font-semibold ">Filtrar</h4>
 
-      <select className="select select-bordered w-full max-w-xs my-2">
-        <option disabled selected>
+      <select onChange={getDeparmet} className="select select-bordered w-full max-w-xs my-2">
+        <option disabled selected >
           Departamento
         </option>
-        <option>Homer</option>
-        <option>Marge</option>
-        <option>Bart</option>
-        <option>Lisa</option>
-        <option>Maggie</option>
+        {
+            departamentos.map(dep=><option  value={dep.id} key={dep.id}>{dep.es_name}</option>)
+        }
+        
+        
       </select>
-      <select className="select select-bordered w-full max-w-xs">
-        <option disabled selected>
+      <select disabled={filter?.dep?.sections.length===0 ? true:false} className="select select-bordered w-full max-w-xs"  >
+        <option disabled >
           Sección
         </option>
-        <option>Homer</option>
-        <option>Marge</option>
-        <option>Bart</option>
-        <option>Lisa</option>
-        <option>Maggie</option>
+        {
+            filter.sec?.map(sec=><option  key={sec.id}>{sec.es_name}</option>)
+        }
       </select>
       <div className="form-control w-full max-w-xs">
         <label className="label">
