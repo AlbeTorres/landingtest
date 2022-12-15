@@ -74,7 +74,7 @@ const NavBar = ({productos}:props) => {
         <div className="flex justify-between items-center my-1">
           <div className="flex items-center">
             <FaShoppingCart className="text-xl" />
-            <a className="normal-case text-xl ml-1 ">Test</a>
+            <a className="normal-case text-xl ml-1 ">TestShop</a>
           </div>
           <div className="flex items-center gap-1 ">
             {!scrolled && (
