@@ -78,7 +78,7 @@ const NavCarrito = ({productos}:props) => {
   compras?.map( producto=> monto = monto + (producto?.price* producto.cantidad)  )
 
   const establecerAccionAux=(accion:accion):void=>{
-    console.log({accion})
+    context?.establecerAccion(accion)
 
   }
 

@@ -1,8 +1,9 @@
 import React,{useEffect, useState} from "react";
 import Container from "./Container";
-import {FaShoppingCart} from 'react-icons/fa'
+import {FaShoppingCart, FaAd} from 'react-icons/fa'
 import Busqueda from "./Busqueda";
 import NavCarrito from "./NavCarrito";
+import Navfilter from "./Navfilter";
 
 
 
@@ -85,6 +86,7 @@ const NavBar = ({productos}:props) => {
             <div className="hidden md:block ">
               <Busqueda />
             </div>
+           <Navfilter/>
             <NavCarrito productos={productos} />
           </div>
         </div>

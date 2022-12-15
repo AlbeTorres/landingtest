@@ -1,5 +1,7 @@
-import React from 'react'
+import React,{useContext} from 'react'
 import CarritoCompras from './CarritoCompras'
+import Filter from './Filter'
+import productoContext from '../context/productoContext'
 
 
 interface Producto{
@@ -47,7 +49,9 @@ type props={
 
 const Modal = ({productos}:props) => {
 
-    let accion= 'carro'
+  const context= useContext(productoContext)
+
+    let accion= context?.accion.accion
 
 
   return (
@@ -57,6 +61,10 @@ const Modal = ({productos}:props) => {
     {accion === "carro" &&
         <div className="w-full flex items-center justify-center ">
         <CarritoCompras productos={productos} />
+        </div>}
+    {accion === "filter" &&
+        <div className="w-full flex items-center justify-center ">
+        <Filter  />
         </div>}
     </div>
   </div>
