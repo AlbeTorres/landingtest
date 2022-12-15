@@ -99,6 +99,16 @@ const Filter = () => {
         })
     }
 
+    const handleChange=(e:React.ChangeEvent<HTMLInputElement>)=>{
+        setFilter({
+
+        
+            ...filter,
+            [e.target.name]:e.target.value,
+        }
+        )
+    }
+
   return (
     <div className="modal-box ">
         <div className="flex flex-col items-center justify-center">
@@ -130,6 +140,9 @@ const Filter = () => {
             type="text"
             placeholder="0.01"
             className="input input-bordered"
+            name="min"
+            value={filter.min}
+            onChange={handleChange}
           />
       </div>
       <div className="form-control w-full max-w-xs">
@@ -141,13 +154,16 @@ const Filter = () => {
             type="text"
             placeholder="0.01"
             className="input input-bordered"
+            name="max"
+            value={filter.max}
+            onChange={handleChange}
           />
         
       </div>
 
-      <div className='flex  items-center mt-5 w-full justify-end'>
-       <label htmlFor="my-modal-6"  className='btn btn-primary mr-3'>Comprar</label>
-       <label htmlFor="my-modal-6" className='btn '>Cancelar</label>
+      <div className='flex  items-center mt-5 w-full justify-center'>
+       <label htmlFor="my-modal-6"  className='btn btn-primary mr-3'>Filtrar</label>
+       <label htmlFor="my-modal-6" className='btn '>Volver</label>
      </div>
         </div>
     </div>
