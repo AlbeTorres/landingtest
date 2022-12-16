@@ -1,5 +1,5 @@
 import axios,{AxiosResponse}  from 'axios'
-import React,{useContext, useState} from 'react'
+import React,{useContext, useState, useEffect} from 'react'
 import Container from './Container'
 import ProductoCard from './ProductoCard'
 import productoContext from '../context/productoContext'
@@ -68,6 +68,11 @@ const handleChangePage=(page:number)=>{
 let auxProductolist=paginate(productos,currentpage,pagesize)
 
 
+useEffect(()=>{
+
+ context?.establecerFiltro({dep:null,sec:null,min:0,max:0})
+},[context?.busqueda])
+
 if(context?.busqueda){
 
   auxProductolist= productos
@@ -95,6 +100,11 @@ if(context?.filtro.dep!==null && context?.filtro.dep?.sections.length===0){
 }
 
 
+if(context?.filtro.sec!==null){
+  auxProductolist=auxProductolist.filter(producto=>producto.section.id===context?.filtro.sec?.id)
+}
+
+
   return (
     <Container>
 
@@ -111,7 +121,7 @@ if(context?.filtro.dep!==null && context?.filtro.dep?.sections.length===0){
     </div>
 
     {
-      context?.busqueda ? null:
+      context?.busqueda || context?.filtro.dep!==null ? null:
     <div className='w-full flex items-center justify-center my-5 '>
 
     <Pagination productos={productos} pagesize={pagesize} currentpage={currentpage} onChangePage={handleChangePage}  />

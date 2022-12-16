@@ -98,7 +98,9 @@ const Filter = () => {
         setFilter({
             ...filter,
             dep:depa,
+            sec:depa?.sections[0],
         })
+
     }
     const getSection=(e:React.ChangeEvent<HTMLSelectElement>)=>{
         const sect= filter?.dep?.sections.find(section=>section.id===parseInt(e.target.value ) )
@@ -106,6 +108,7 @@ const Filter = () => {
             ...filter,
             sec:sect,
         })
+        console.log(sect?.es_name)
     }
 
     const handleChange=(e:React.ChangeEvent<HTMLInputElement>)=>{
@@ -141,12 +144,12 @@ const Filter = () => {
         
         
       </select>
-      <select disabled={filter?.dep?.sections.length===0 ? true:false} className="select select-bordered w-full max-w-xs"  >
+      <select onChange={getSection} disabled={filter?.dep?.sections.length===0 ? true:false} className="select select-bordered w-full max-w-xs"  >
         <option disabled >
           Sección
         </option>
         {
-            filter.dep?.sections.map(sec=><option  key={sec.id}>{sec.es_name}</option>)
+            filter.dep?.sections.map(sec=><option value={sec.id}  key={sec.id}>{sec.es_name}</option>)
         }
       </select>
       <div className="form-control w-full max-w-xs">
