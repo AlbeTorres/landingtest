@@ -1,4 +1,5 @@
-import React,{useState, useEffect} from "react";
+import React,{useState, useEffect, useContext} from "react";
+import productoContext from "../context/productoContext";
 import axios from "axios";
 
 interface Producto{
@@ -59,12 +60,14 @@ interface Producto{
 
   type state={
     dep?:Deparmet|null,
-    sec?:Section[]|null,
+    sec?:Section|null,
     min?:number,
     max?:number
   }
 
 const Filter = () => {
+
+  const context = useContext(productoContext);
 
     let filte:state={dep:null,sec:null,min:0,max:0}
     let depaux:Deparmet={id:0,es_name:'empty', sections:[], en_name:'', icon:'', cover:''}
@@ -95,7 +98,13 @@ const Filter = () => {
         setFilter({
             ...filter,
             dep:depa,
-            sec:depa?.sections
+        })
+    }
+    const getSection=(e:React.ChangeEvent<HTMLSelectElement>)=>{
+        const sect= filter?.dep?.sections.find(section=>section.id===parseInt(e.target.value ) )
+        setFilter({
+            ...filter,
+            sec:sect,
         })
     }
 
@@ -107,6 +116,14 @@ const Filter = () => {
             [e.target.name]:e.target.value,
         }
         )
+    }
+
+
+    const filtrar=()=>{
+        context?.establecerFiltro(filter);
+    }
+    const filtrarBack=()=>{
+        context?.establecerFiltro({dep:null,sec:null,min:0,max:0});
     }
 
   return (
@@ -129,7 +146,7 @@ const Filter = () => {
           Sección
         </option>
         {
-            filter.sec?.map(sec=><option  key={sec.id}>{sec.es_name}</option>)
+            filter.dep?.sections.map(sec=><option  key={sec.id}>{sec.es_name}</option>)
         }
       </select>
       <div className="form-control w-full max-w-xs">
@@ -162,8 +179,8 @@ const Filter = () => {
       </div>
 
       <div className='flex  items-center mt-5 w-full justify-center'>
-       <label htmlFor="my-modal-6"  className='btn btn-primary mr-3'>Filtrar</label>
-       <label htmlFor="my-modal-6" className='btn '>Volver</label>
+       <label onClick={filtrar} htmlFor="my-modal-6"  className='btn btn-primary mr-3'>Filtrar</label>
+       <label onClick={filtrarBack} htmlFor="my-modal-6" className='btn '>Volver</label>
      </div>
         </div>
     </div>

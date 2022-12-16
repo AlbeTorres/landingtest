@@ -6,9 +6,37 @@ import {
   MODIFICAR_PRODUCTO_CARRO,
   OBTENER_BUSQUEDA,
   OBTENER_CARRO,
+  SET_FILTER,
   
 } from "../types";
 
+interface Section{
+  id:number,
+  cover:null|string ,
+  icon:null|string ,
+  en_name:string,
+  es_name:string,
+  department:number
+ created:string,
+ update:string
+}
+
+
+interface Deparmet{
+        id: number,
+        en_name: string,
+        es_name: string,
+        icon:string|null,
+        cover: string|null,
+        sections:Section[]
+}
+
+type filter={
+  dep?:Deparmet|null,
+  sec?:Section|null,
+  min?:number,
+  max?:number
+ }
 
 type carrito={
   id:number, cantidad:number
@@ -17,7 +45,8 @@ type carrito={
 type state={
   busqueda: string,
   accion: { id:number, accion: number },
-  carrito: Array<carrito>
+  carrito: carrito[],
+  filtro:filter
 
 }
 
@@ -65,6 +94,11 @@ export default (state:state, action:action) => {
       return({
         ...state,
         busqueda:action.payload
+      })
+    case SET_FILTER:
+      return({
+        ...state,
+        filtro:action.payload
       })
     default:
       return state;

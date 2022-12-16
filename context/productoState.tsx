@@ -8,7 +8,30 @@ import {
   OBTENER_CARRO,
   ELIMINAR_CARRO,
   ELIMINAR_CARRO_ALL,
+  SET_FILTER
 } from "../types";
+
+
+interface Section{
+  id:number,
+  cover:null|string ,
+  icon:null|string ,
+  en_name:string,
+  es_name:string,
+  department:number
+ created:string,
+ update:string
+}
+
+
+interface Deparmet{
+        id: number,
+        en_name: string,
+        es_name: string,
+        icon:string|null,
+        cover: string|null,
+        sections:Section[]
+}
 
 
 type props ={
@@ -24,14 +47,29 @@ type accion={
 
 }
 
+type filter={
+ dep?:Deparmet|null,
+ sec?:Section|null,
+ min?:number,
+ max?:number
+}
+
+type initialState={
+  busqueda:string,
+  carrito:carrito[],
+  accion:accion,
+  filtro:filter
+}
+
 
 
 const ProductoState = ({children}:props) => {
 
-  const initialState = {
+  const initialState:initialState = {
     busqueda: "",
     accion: { id: 0, accion: "" },
-    carrito:[{id:0, cantidad:0}]
+    carrito:[{id:0, cantidad:0}],
+    filtro:{dep:null,sec:null,min:0,max:0}
   };
 
   const [state, dispatch] = useReducer(productoReducer, initialState);
@@ -131,11 +169,18 @@ const ProductoState = ({children}:props) => {
 
       if(carrito){
         carritoarray = JSON.parse(carrito);
-     
-      dispatch({
-        type:OBTENER_CARRO,
-        payload:carritoarray
-      }) }
+        
+        dispatch({
+          type:OBTENER_CARRO,
+          payload:carritoarray
+        }) }
+      }
+      
+  const establecerFiltro=(filtro:filter)=>{
+    dispatch({
+      type:SET_FILTER,
+      payload:filtro
+    }) 
   }
 
 
@@ -145,12 +190,14 @@ const ProductoState = ({children}:props) => {
         busqueda: state.busqueda,
         accion: state.accion,
         carrito:state.carrito,
+        filtro:state.filtro,
         establecerBusqueda,
         establecerAccion,
         agregarCarrito,
         obtenerCarrito,
         eliminarCarrito,
         eliminarTodoElcarro,
+        establecerFiltro,
       }}
     >
       {children}

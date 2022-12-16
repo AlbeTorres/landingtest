@@ -82,13 +82,22 @@ export async function getStaticProps() {
       baseURL: 'http://sibucan-shop-staging.herokuapp.com'
   });
 
-  let response = await clienteAxios.get('/products/');
-  let productos = response.data.results
-  
-  while(response.data.next!==null){
-    response= await clienteAxios.get(`/products/?page=${page}`);
-    productos=[...productos, ...response.data.results]
-    page=page+1
+  let productos;
+
+  try {
+    
+    let response = await clienteAxios.get('/products/');
+     productos= response.data.results
+    
+    while(response.data.next!==null){
+      response= await clienteAxios.get(`/products/?page=${page}`);
+      productos=[...productos, ...response.data.results]
+      page=page+1
+    }
+  } catch (error) {
+console.log(error)
+
+    
   }
 
 
