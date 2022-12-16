@@ -1,5 +1,5 @@
 import React,{useContext} from 'react'
-import { FaAd } from 'react-icons/fa'
+import { FaFilter } from 'react-icons/fa'
 import productoContext from '../context/productoContext'
 
 const Navfilter = () => {
@@ -12,7 +12,7 @@ const Navfilter = () => {
 
   return (
     <label htmlFor="my-modal-6" onClick={()=>establecerAccionAux({id:0,accion:'filter'})} className="btn btn-ghost btn-circle">
-    <FaAd/>
+    <FaFilter/>
     </label>
   )
 }

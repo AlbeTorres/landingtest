@@ -70,7 +70,7 @@ const NavBar = ({productos}:props) => {
 
 
   return (
-    <div className=" bg-base-100 fixed top-0  z-50   w-full md:py-4 min-h-6  ">
+    <nav className=" bg-base-100 fixed top-0  z-50   w-full md:py-4 min-h-6  ">
       <Container>
         <div className="flex justify-between items-center my-1">
           <div className="flex items-center">
@@ -91,7 +91,7 @@ const NavBar = ({productos}:props) => {
           </div>
         </div>
       </Container>
-    </div>
+    </nav>
   );
 };
 
