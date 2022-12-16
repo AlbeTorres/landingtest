@@ -79,6 +79,7 @@ const CarritoCompras = ({productos}:props) => {
     
       const onSubmit=()=>{
         context?.eliminarTodoElcarro();
+        context?.establecerFiltro({dep:null,sec:null,min:0,max:0})
         alert('Gracias por la compra')
       }
 
