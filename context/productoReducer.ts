@@ -34,8 +34,8 @@ interface Deparmet{
 type filter={
   dep?:Deparmet|null,
   sec?:Section|null,
-  min?:number,
-  max?:number
+  min:number,
+  max:number
  }
 
 type carrito={

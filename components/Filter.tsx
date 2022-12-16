@@ -61,8 +61,8 @@ interface Producto{
   type state={
     dep?:Deparmet|null,
     sec?:Section|null,
-    min?:number,
-    max?:number
+    min:number,
+    max:number
   }
 
 const Filter = () => {
@@ -127,6 +127,7 @@ const Filter = () => {
     }
     const filtrarBack=()=>{
         context?.establecerFiltro({dep:null,sec:null,min:0,max:0});
+        setFilter(filte)
     }
 
   return (

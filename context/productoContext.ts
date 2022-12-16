@@ -29,8 +29,8 @@ type carrito={
 type filter={
   dep?:Deparmet|null,
   sec?:Section|null,
-  min?:number,
-  max?:number
+  min:number,
+  max:number
  }
 
 interface ctx{
