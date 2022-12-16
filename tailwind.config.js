@@ -5,7 +5,12 @@ module.exports = {
     "./components/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      backgroundImage: {
+        'hero-pattern': "url('../public/blob .svg')",
+        'hero-pattern-dark': "url('../public/blob-haikei.svg')",
+      }
+    }
   },
   plugins: [require("daisyui")],
 }

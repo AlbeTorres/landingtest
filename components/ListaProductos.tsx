@@ -130,7 +130,7 @@ const ListaProductos = ({ productos }: props) => {
 
   return (
     <Container>
-      <div className="mt-36   my-10 md:mt-20 w-full">
+      <div id="produ" className="my-10 md:mt-20 w-full">
         <div className="w-full">
           <h2 className="text-2xl py-4 ">Productos</h2>
 

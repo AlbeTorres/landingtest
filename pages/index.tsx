@@ -3,6 +3,10 @@ import Modal from '../components/Modal'
 import NavBar from '../components/NavBar'
 import PageLayout from '../components/PageLayout'
 import axios  from 'axios'
+import Header from '../components/Header'
+import Footer from '../components/Footer'
+import productoContext from '../context/productoContext'
+import {useContext} from 'react'
 
 
 interface Producto{
@@ -63,11 +67,18 @@ type props={
 }
 
 export default function Home({productos}:props) {
+
+  const context= useContext(productoContext)
+
   return (
     <div>
       <PageLayout tittle='TestShop'>
         <NavBar productos={productos}/>
+        {
+          !context?.busqueda ? <Header/>: <></>
+        }
         <ListaProductos productos={productos}/>
+        <Footer/>
         <Modal productos={productos}  />
       </PageLayout>
 

@@ -77,7 +77,7 @@ const Filter = () => {
 
     useEffect(()=>{
         const clienteAxios = axios.create({
-            baseURL: 'http://sibucan-shop-staging.herokuapp.com'
+            baseURL: 'https://sibucan-shop-staging.herokuapp.com'
         });
 
         const apiCalls=async()=>{
