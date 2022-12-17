@@ -98,7 +98,7 @@ const Filter = () => {
         setFilter({
             ...filter,
             dep:depa,
-            sec:depa?.sections[0],
+            
         })
 
     }
